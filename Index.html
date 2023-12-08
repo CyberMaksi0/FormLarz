@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Formularz</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5, #00d2ff, #3a7bd5);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border: 2px solid #008080;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #000;
+            width: 500px;
+        }
+
+        label {
+            color: #008080;
+        }
+
+        button {
+            background-color: #008080;
+            color: #fff;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #005656;
+        }
+    </style>
+</head>
+<body>   
+<script>
+    $(document).ready(function () {
+        $('#myForm').validate({
+            rules: {
+                firstName: 'required',
+                lastName: 'required',
+                dob: 'required',
+                email: {
+                    required: true,
+                    email: true
+                },
+                phone: 'required',
+                province: 'required',
+                gender: 'required'
+            },
+            messages: {
+                firstName: 'Proszę podać imię',
+                lastName: 'Proszę podać nazwisko',
+                dob: 'Proszę podać datę urodzenia',
+                email: {
+                    required: 'Proszę podać adres email',
+                    email: 'Proszę podać poprawny adres email'
+                },
+                phone: 'Proszę podać numer telefonu',
+                province: 'Proszę wybrać województwo',
+                gender: 'Proszę wybrać płeć'
+            },
+            errorElement: 'div',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>
+<div class="container mt-5">
+    <form id="myForm" method="post" action="save_data.php">
+        <div class="form-group">
+            <label for="imie">Imię:</label>
+            <input type="text" class="form-control" id="imie" name="imie" required>
+        </div>
+        <div class="form-group">
+            <label for="nazwisko">Nazwisko:</label>
+            <input type="text" class="form-control" id="nazwisko" name="nazwisko" required>
+        </div>
+        <div class="form-group">
+            <label for="data">Data urodzenia:</label>
+            <input type="date" class="form-control" id="data" name="data" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Adres email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="telefon">Telefon:</label>
+            <input type="tel" class="form-control" id="telefon" name="telefon" required>
+        </div>
+        <div class="form-group">
+            <label for="woje">Województwo:</label>
+            <select class="form-control" id="woje" name="woje" required>
+                <option value="dolnośląskie">Dolnośląskie</option>
+                <option value="kujawsko-pomorskie">Kujawsko-Pomorskie</option>
+                <option value="lubelskie">Lubelskie</option>
+                <option value="lubuskie">Lubuskie</option>
+                <option value="łódzkie">Łódzkie</option>
+                <option value="małopolskie">Małopolskie</option>
+                <option value="mazowieckie">Mazowieckie</option>
+                <option value="opolskie">Opolskie</option>
+                <option value="podkarpackie">Podkarpackie</option>
+                <option value="podlaskie">Podlaskie</option>
+                <option value="pomorskie">Pomorskie</option>
+                <option value="śląskie">Śląskie</option>
+                <option value="świętokrzyskie">Świętokrzyskie</option>
+                <option value="warmińsko-mazurskie">Warmińsko-Mazurskie</option>
+                <option value="wielkopolskie">Wielkopolskie</option>
+                <option value="zachodniopomorskie">Zachodniopomorskie</option>
+            </select>
+        </div>        
+        <div class="form-group">
+            <label>Płeć:</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="plec" id="male" value="male" required>
+                <label class="form-check-label" for="male">Mężczyzna</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="plec" id="female" value="female" required>
+                <label class="form-check-label" for="female">Kobieta</label>
+            </div>
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="newsletter" name="newsletter">
+            <label class="form-check-label" for="newsletter">Zgoda na newsletter</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Zapisz</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.19.1/additional-methods.min.js"></script>
+<script src="form-validation.js"></script>
+
+</body>
+</html>
